@@ -1,2 +1,5 @@
 # Ignore all SQLite databases
 db/*.sqlite3
+
+# Ignore that pesky DS_Store
+.DS_Store
