@@ -6,7 +6,7 @@ for (let i = 0; i < array.length; i+= 1) {
     indexOfFive = i;
     break;
   }
-  // This line never executes because I use the break keyword two lines up
+  // The line below never executes because I use the break keyword two lines up
   console.log(array[i]);
 }
 
