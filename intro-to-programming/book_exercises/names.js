@@ -1,12 +1,12 @@
 let names = ['Chris', 'Kevin', 'Naveed', 'Pete', 'Victor'];
 let upperNames = [];
-let index = 0;
 const namesLength = names.length;
 
-while (index < namesLength) {
-  let upperCaseName = names[index].toUpperCase();
-  upperNames.push(upperCaseName);
-  index += 1;
+for (let index = 0; index < namesLength; index += 1) {
+  if (names[index] !== 'Naveed') {
+    let upperCaseName = names[index].toUpperCase();
+    upperNames.push(upperCaseName);
+  }
 }
 
 console.log(upperNames);
