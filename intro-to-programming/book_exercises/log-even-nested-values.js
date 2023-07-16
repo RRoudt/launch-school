@@ -1,3 +1,5 @@
+// Solution to exercise 3 of the Arrays chapter
+
 let myArray = [
   [1, 3, 6, 11],
   [4, 2, 4],
