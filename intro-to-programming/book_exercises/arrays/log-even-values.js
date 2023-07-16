@@ -1,3 +1,5 @@
+// Solution to exercise 2 of the Arrays chapter
+
 let myArray = [1, 3, 6, 11, 4, 2, 4, 9, 17, 16, 0];
 
 myArray.forEach(num => {
