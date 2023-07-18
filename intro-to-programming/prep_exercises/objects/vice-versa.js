@@ -1,4 +1,4 @@
-/* Exercise 8: Convert nestedArray into an object, containing the same key-value pairs. */
+/* Exercise 9: Convert nestedArray into an object, containing the same key-value pairs. */
 
 let nestedArray = [['title', 'Duke'], ['name', 'Nukem'], ['age', 33]];
 
