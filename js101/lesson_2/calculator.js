@@ -1,4 +1,4 @@
-/* Exercise 5: Calculator (walkthrough) 
+/* Exercise 5: Calculator (walkthrough)
 
 [x] Ask the user for the first number
 [x] Ask the user for the second number
@@ -37,6 +37,6 @@ console.log('Welcome to Calculator!');
 // Ask the user for the numbers and operation
 const number1 = readline.question("What's the first number?\n");
 const number2 = readline.question("What's the second number?\n");
-const operation = readline.question("What's the operation?\n1) Add\n2) Subtract\n3) Multiply\n4) Divide\n"); 
+const operation = readline.question("What's the operation?\n1) Add\n2) Subtract\n3) Multiply\n4) Divide\n");
 
 console.log(calculate(number1, number2, operation));
