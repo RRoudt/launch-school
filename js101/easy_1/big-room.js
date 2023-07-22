@@ -18,7 +18,7 @@ SET readline = require readlineSync
 GET length of the room in meters
 GET width of the room in meters
 SET sqMeters = length * width
-SET sqFeet = sqMeters 10.7639
+SET sqFeet = sqMeters * 10.7639
 PRINT The area of the room is sqMeters square meters (sqFeet square feet).
 */
 
