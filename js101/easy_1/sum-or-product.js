@@ -22,16 +22,17 @@ Pseudocode:
 [x] GET and SET operation from user while no valid input ('s' or 'p')
   [x] SET to 's' to compute the sum
   [x] SET to 'p' to compute the product
-IF operation === 's'
-  SET iterator = 1
-  WHILE iterator below or equal to number
+[x] IF operation === 's'
+  [x] SET iterator = 1
+  [x] WHILE iterator below or equal to number
     total += iterator
-  PRINT total: "The sum of the integers between 1 and number is xxx."
-ELSE
-  SET iterator = 1
-  WHILE iterator below or equal to number
+  [x] PRINT total: "The sum of the integers between 1 and number is xxx."
+[x] ELSE
+  [x] SET total = 0;
+  [x] SET iterator = 1
+  [x] WHILE iterator below or equal to number
     total *= iterator
-  PRINT total: "The product of the integers between 1 and number is xxx."
+  [x] PRINT total: "The product of the integers between 1 and number is xxx."
 */
 
 const readline = require('readline-sync');
