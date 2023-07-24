@@ -5,7 +5,7 @@ This is is a continuation of calculator-refactored.js.
 This was added in comparison to calculator-refactored.js:
 [x] Ask the user for another calculation
 [x] Extract messages in the program to a configuration file
-[] Internationalization of the messages in the configuration file
+[x] Internationalization of the messages in the configuration file
 
 Pseudocode ask the user for another calculation:
 WHILE iterator equals true
@@ -18,6 +18,9 @@ WHILE iterator equals true
 
 const MSG = require('./calculator_messages.json');
 const readline = require('readline-sync');
+
+// Set language: "en" for English, "nl" for Dutch
+const LANG = "nl";
 
 // Prettier console log when asking questions
 function prompt(message) {
@@ -36,7 +39,7 @@ function getNumber(promptMessage) {
   let num = readline.question();
 
   while (invalidNumber(num)) {
-    prompt(MSG.invalidNumber);
+    prompt(MSG[LANG].invalidNumber);
     num = readline.question();
   }
 
@@ -45,11 +48,11 @@ function getNumber(promptMessage) {
 
 // Prompt user for operation
 function getOperation() {
-  prompt(MSG.getOperation);
+  prompt(MSG[LANG].getOperation);
   let operation = readline.question();
 
   while (!['1', '2', '3', '4'].includes(operation)) {
-    prompt(MSG.invalidOperation);
+    prompt(MSG[LANG].invalidOperation);
     operation = readline.question();
   }
 
@@ -76,18 +79,18 @@ function calculate(number1, number2, operation) {
 
     // Any other value entered as operation
     default:
-      return MSG.invalidOperation;
+      return MSG[LANG].invalidOperation;
   }
 }
 
-prompt(MSG.welcomeMessage);
+prompt(MSG[LANG].welcomeMessage);
 
 // Ask the user for the numbers and operation
 while (true) {
-  const number1 = getNumber(MSG.getFirstNumber);
-  const number2 = getNumber(MSG.getSecondNumber);
+  const number1 = getNumber(MSG[LANG].getFirstNumber);
+  const number2 = getNumber(MSG[LANG].getSecondNumber);
   const operation = getOperation();
 
   console.log(calculate(number1, number2, operation));
-  if (readline.question(MSG.anotherCalcPrompt).toLowerCase() === 'n') break;
+  if (readline.question(MSG[LANG].anotherCalcPrompt).toLowerCase() === 'n') break;
 }

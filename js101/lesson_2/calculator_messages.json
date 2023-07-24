@@ -1,9 +1,22 @@
-{
-  "welcomeMessage": "Welcome to Calculator!",
-  "getFirstNumber": "What's the first number?",
-  "getSecondNumber": "What's the second number?",
-  "getOperation": "What's the operation?\n1) Add\n2) Subtract\n3) Multiply\n4) Divide",
-  "invalidOperation": "Must choose 1, 2, 3, or 4",
-  "invalidNumber": "Hmm... that doesn't look like a valid number.",
-  "anotherCalcPrompt": "Do another calculation? (y/n) "
+{ 
+  "en": 
+    {
+      "welcomeMessage": "Welcome to Calculator!",
+      "getFirstNumber": "What's the first number?",
+      "getSecondNumber": "What's the second number?",
+      "getOperation": "What's the operation?\n1) Add\n2) Subtract\n3) Multiply\n4) Divide",
+      "invalidOperation": "Must choose 1, 2, 3, or 4.",
+      "invalidNumber": "Hmm... that doesn't look like a valid number.",
+      "anotherCalcPrompt": "Do another calculation? (y/n) "
+    },
+  "nl":
+    {
+      "welcomeMessage": "Welkom in Calculator!",
+      "getFirstNumber": "Wat is het eerste nummer?",
+      "getSecondNumber": "Wat is the tweede nummer?",
+      "getOperation": "Wat is de operatie?\n1) Optellen\n2) Aftrekken\n3) Vermeningvuldigen\n4) Delen",
+      "invalidOperation": "Je moet 1, 2, 3, of 4 kiezen.",
+      "invalidNumber": "Hmm... dat lijkt geen valide nummer.",
+      "anotherCalcPrompt": "Wil je nog een calculatie doen? (j/n) "
+    }
 }
