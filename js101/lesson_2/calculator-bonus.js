@@ -14,6 +14,17 @@ WHILE iterator equals true
   GET operation from user
   PRINT calculation
   GET input from user (continue? y/n)
+
+Steps to extract messages to a configuration file:
+- Create calculator_messages.json
+- Initialize MSG const, requiring calculator_messages.json
+- Cut-paste the messages into calculator_messages.json and give descriptive keys
+- Add references to messages object for the messages in calculator-bonus.js
+
+Steps to add internationalization support:
+- Nest localized messages inside a nested object in calculator_message.json
+- Initialize a LANG const, containing a two-letter code for the language]
+- Update MSG references to MSG[LANG] references
 */
 
 const MSG = require('./calculator_messages.json');
