@@ -3,7 +3,7 @@
 This is is a continuation of calculator-refactored.js.
 
 This was added in comparison to calculator-refactored.js:
-[] Ask the user for another calculation
+[x] Ask the user for another calculation
 [] Extract messages in the program to a configuration file
 [] Internationalization of the messages in the configuration file
 
@@ -82,8 +82,11 @@ function calculate(number1, number2, operation) {
 prompt('Welcome to Calculator!');
 
 // Ask the user for the numbers and operation
-const number1 = getNumber("What's the first number?");
-const number2 = getNumber("What's the second number?");
-const operation = getOperation();
+while (true) {
+  const number1 = getNumber("What's the first number?");
+  const number2 = getNumber("What's the second number?");
+  const operation = getOperation();
 
-console.log(calculate(number1, number2, operation));
+  console.log(calculate(number1, number2, operation));
+  if (readline.question("Do another calculation? (y/n) ").toLowerCase() === 'n') break;
+}
