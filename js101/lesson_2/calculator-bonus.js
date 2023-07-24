@@ -6,6 +6,14 @@ This was added in comparison to calculator-refactored.js:
 [] Ask the user for another calculation
 [] Extract messages in the program to a configuration file
 [] Internationalization of the messages in the configuration file
+
+Pseudocode ask the user for another calculation:
+WHILE iterator equals true
+  GET number1 from user
+  GET number2 from user
+  GET operation from user
+  PRINT calculation
+  GET input from user (continue? y/n)
 */
 
 const readline = require('readline-sync');
