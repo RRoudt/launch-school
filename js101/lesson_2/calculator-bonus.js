@@ -4,7 +4,7 @@ This is is a continuation of calculator-refactored.js.
 
 This was added in comparison to calculator-refactored.js:
 [x] Ask the user for another calculation
-[] Extract messages in the program to a configuration file
+[x] Extract messages in the program to a configuration file
 [] Internationalization of the messages in the configuration file
 
 Pseudocode ask the user for another calculation:
@@ -16,11 +16,12 @@ WHILE iterator equals true
   GET input from user (continue? y/n)
 */
 
+const MSG = require('./calculator_messages.json');
 const readline = require('readline-sync');
 
 // Prettier console log when asking questions
-function prompt(msg) {
-  console.log(`=> ${msg}`);
+function prompt(message) {
+  console.log(`=> ${message}`);
 }
 
 // Check if inputted number is invalid
@@ -29,13 +30,13 @@ function invalidNumber(num) {
 }
 
 // Prompt user for number
-function getNumber(msg) {
-  prompt(msg);
+function getNumber(promptMessage) {
+  prompt(promptMessage);
 
   let num = readline.question();
 
   while (invalidNumber(num)) {
-    prompt("Hmm... that doesn't look like a valid number.");
+    prompt(MSG.invalidNumber);
     num = readline.question();
   }
 
@@ -44,11 +45,11 @@ function getNumber(msg) {
 
 // Prompt user for operation
 function getOperation() {
-  prompt("What's the operation?\n1) Add\n2) Subtract\n3) Multiply\n4) Divide");
+  prompt(MSG.getOperation);
   let operation = readline.question();
 
   while (!['1', '2', '3', '4'].includes(operation)) {
-    prompt("Must choose 1, 2, 3, or 4");
+    prompt(MSG.invalidOperation);
     operation = readline.question();
   }
 
@@ -75,18 +76,18 @@ function calculate(number1, number2, operation) {
 
     // Any other value entered as operation
     default:
-      return "Invalid operation";
+      return MSG.invalidOperation;
   }
 }
 
-prompt('Welcome to Calculator!');
+prompt(MSG.welcomeMessage);
 
 // Ask the user for the numbers and operation
 while (true) {
-  const number1 = getNumber("What's the first number?");
-  const number2 = getNumber("What's the second number?");
+  const number1 = getNumber(MSG.getFirstNumber);
+  const number2 = getNumber(MSG.getSecondNumber);
   const operation = getOperation();
 
   console.log(calculate(number1, number2, operation));
-  if (readline.question("Do another calculation? (y/n) ").toLowerCase() === 'n') break;
+  if (readline.question(MSG.anotherCalcPrompt).toLowerCase() === 'n') break;
 }
