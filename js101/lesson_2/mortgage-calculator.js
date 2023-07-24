@@ -65,13 +65,22 @@ function getNumber(promptMessage) {
   return Number(num);
 }
 
+function calculateLoanDurationInMonths(loanDurationInYears) {
+  return loanDurationInYears * 12;
+}
+
+function calculateMonthlyInterestRate(annualInterestRate) {
+  return annualInterestRate / 100 / 12;
+}
+
 function calculateMonthlyPayment(loanAmount,
   annualInterestRate, loanDurationInYears) {
 
   // Calculate monthly rates
-  let loanDurationInMonths = loanDurationInYears * 12;
-  let monthlyInterestRate = annualInterestRate / 100 / 12;
-  let monthlyInterestRatePercent = monthlyInterestRate * 100;
+  const loanDurationInMonths =
+    calculateLoanDurationInMonths(loanDurationInYears);
+
+  const monthlyInterestRate = calculateMonthlyInterestRate(annualInterestRate);
 
   // Calculate monthly dollar payment
   let discountFactor = Math.pow((1 + monthlyInterestRate),
@@ -79,19 +88,17 @@ function calculateMonthlyPayment(loanAmount,
   let monthlyPayment = loanAmount * (monthlyInterestRate /
     (1 - discountFactor));
 
-  console.log(`Loan duration: ${loanDurationInMonths} months`);
-  console.log(`Monthly interest rate: ${monthlyInterestRatePercent.toFixed(2)}%`);
-  console.log(`Monthly payment: $${monthlyPayment.toFixed(2)}`);
+  return monthlyPayment.toFixed(2);
 }
 
 // Ask the user for the numbers and operation
 while (true) {
-  const loanAmount = getNumber("What is the loan amount?");
-  const annualInterestRate = getNumber("What is the annual interest rate? (Example: 5 for 5% or 2.5 for 2.5%)");
-  const loanDurationInYears = getNumber("What is the loan duration (in years)?");
+  let loanAmount = getNumber("What is the loan amount?");
+  let annualInterestRate = getNumber("What is the annual interest rate? (Example: 5 for 5% or 2.5 for 2.5%)");
+  let loanDurationInYears = getNumber("What is the loan duration (in years)?");
 
-  console.log(calculateMonthlyPayment(
-    loanAmount, annualInterestRate, loanDurationInYears));
+  prompt(`Monthly payment: $${calculateMonthlyPayment(
+    loanAmount, annualInterestRate, loanDurationInYears)}`);
 
   if (readline.question("Do another calculation? (y/n) ").toLowerCase() === 'n') break;
 }
