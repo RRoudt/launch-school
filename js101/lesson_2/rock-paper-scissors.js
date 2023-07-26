@@ -8,9 +8,9 @@ Output:
 - The winner is displayed
 
 Rules:
-- If player a chooses rock and player b chooses scissors, player a wins.
-- If player a chooses paper and player b chooses rock, player a wins.
-- If player a chooses scissors and player b chooses paper, player a wins.
+- If user chooses rock and comp chooses scissors, user wins.
+- If user chooses paper and comp chooses rock, user wins.
+- If user chooses scissors and comp chooses paper, user wins.
 - If both players choose the same item, neither player wins. It's a tie.
 
 Pseudocode:
@@ -21,6 +21,10 @@ Pseudocode:
   - Get userChoice (0. rock, 1. paper, or 2. scissors)
 - Generate compChoice, a random number from 0 to 2 (inclusive)
 - Compare userChoice and compChoice and display winner
+- Ask user to continue playing
+  - Set isPlaying to true
+  - While isPlaying is true, ask if user wants to continue
+    - If no, set isPlaying to false
 */
 
 const readline = require('readline-sync');
@@ -52,24 +56,36 @@ function displayWinner(userChoice, compChoice) {
   }
 }
 
-// Present possible choices to user
-prompt(`Choose one (${CHOICE_KEYS.join(', ')}):`);
-for (let index = 0; index < VALID_CHOICES.length; index += 1) {
-  prompt(`${index} ${VALID_CHOICES[index]}`);
+let isPlaying = true;
+while (isPlaying === true) {
+  // Present possible choices to user
+  prompt(`Choose one (${CHOICE_KEYS.join(', ')}):`);
+  for (let index = 0; index < VALID_CHOICES.length; index += 1) {
+    prompt(`${index} ${VALID_CHOICES[index]}`);
+  }
+
+  // Collect input from user, and keep asking until a valid input is given
+  let userChoice = readline.question();
+  while (!CHOICE_KEYS.includes(userChoice)) {
+    prompt(`That's not a valid choice. Please choose ${CHOICE_KEYS.join(', ')}:`);
+    userChoice = readline.question();
+  }
+
+  // Turn user input from string into number
+  userChoice = Number(userChoice);
+
+  // Generate computer's choice
+  let compChoice = Math.floor(Math.random() * VALID_CHOICES.length);
+
+  // Invoke funtion to display winner
+  displayWinner(userChoice, compChoice);
+
+  // Ask user to continue playing
+  prompt('Do you want to play again (y/n)?');
+  let continuePlaying = readline.question().toLowerCase();
+  while (continuePlaying[0] !== 'n' && continuePlaying[0] !== 'y') {
+    prompt('Please enter "y" or "n".');
+    continuePlaying = readline.question().toLowerCase();
+  }
+  if (continuePlaying[0] === 'n') isPlaying = false;
 }
-
-// Collect input from user, and keep asking until a valid input is given
-let userChoice = readline.question();
-while (!CHOICE_KEYS.includes(userChoice)) {
-  prompt(`That's not a valid choice. Please choose ${CHOICE_KEYS.join(', ')}:`);
-  userChoice = readline.question();
-}
-
-// Turn user input from string into number
-userChoice = Number(userChoice);
-
-// Generate computer's choice
-let compChoice = Math.floor(Math.random() * VALID_CHOICES.length);
-
-// Invoke funtion to display winner
-displayWinner(userChoice, compChoice);
