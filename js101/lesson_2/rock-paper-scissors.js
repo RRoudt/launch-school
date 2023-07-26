@@ -27,16 +27,35 @@ const readline = require('readline-sync');
 const VALID_CHOICES = ['rock', 'paper', 'scissors'];
 const CHOICE_KEYS = Object.keys(VALID_CHOICES);
 
-console.log(CHOICE_KEYS);
-
+// Clear prompt from computer
 function prompt(msg) {
   console.log(`=> ${msg}`);
+}
+
+// Winning logic
+// 0 = rock, 1 = paper, 2 = scissors
+function displayWinner(userChoice, compChoice) {
+  prompt(`You chose:  ${VALID_CHOICES[userChoice]}`);
+  prompt(`Comp chose: ${VALID_CHOICES[compChoice]}`);
+  if (
+    (userChoice === 0 && compChoice === 2) ||
+    (userChoice === 1 && compChoice === 0) ||
+    (userChoice === 2 && compChoice === 1)) {
+    prompt("You win!");
+  } else if (
+    (userChoice === 0 && compChoice === 1) ||
+    (userChoice === 1 && compChoice === 2) ||
+    (userChoice === 2 && compChoice === 0)) {
+    prompt("Comp wins!");
+  } else {
+    prompt("It's a tie!");
+  }
 }
 
 // Present possible choices to user
 prompt(`Choose one (${CHOICE_KEYS.join(', ')}):`);
 for (let index = 0; index < VALID_CHOICES.length; index += 1) {
-  console.log(`${index} ${VALID_CHOICES[index]}`);
+  prompt(`${index} ${VALID_CHOICES[index]}`);
 }
 
 // Collect input from user, and keep asking until a valid input is given
@@ -52,3 +71,5 @@ userChoice = Number(userChoice);
 // Generate computer's choice
 let compChoice = Math.floor(Math.random() * VALID_CHOICES.length);
 
+// Invoke funtion to display winner
+displayWinner(userChoice, compChoice);
