@@ -41,18 +41,14 @@ function prompt(msg) {
 function displayWinner(userChoice, compChoice) {
   prompt(`You chose:  ${VALID_CHOICES[userChoice]}`);
   prompt(`Comp chose: ${VALID_CHOICES[compChoice]}`);
-  if (
-    (userChoice === 0 && compChoice === 2) ||
-    (userChoice === 1 && compChoice === 0) ||
-    (userChoice === 2 && compChoice === 1)) {
+  if ((userChoice === 0 && compChoice === 2) ||
+      (userChoice === 1 && compChoice === 0) ||
+      (userChoice === 2 && compChoice === 1)) {
     prompt("You win!");
-  } else if (
-    (userChoice === 0 && compChoice === 1) ||
-    (userChoice === 1 && compChoice === 2) ||
-    (userChoice === 2 && compChoice === 0)) {
-    prompt("Comp wins!");
-  } else {
+  } else if (userChoice === compChoice) {
     prompt("It's a tie!");
+  } else {
+    prompt("Comp wins!");
   }
 }
 
