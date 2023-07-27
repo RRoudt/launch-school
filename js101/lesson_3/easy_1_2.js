@@ -1,4 +1,6 @@
-/* Easy 1.2: How can you determine whether a given string ends with an exclamation mark (!)?
+/* Easy 1.2
+
+How can you determine whether a given string ends with an exclamation mark (!)?
 
 Input:
 - String
