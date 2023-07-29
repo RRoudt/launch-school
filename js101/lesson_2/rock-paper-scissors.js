@@ -31,7 +31,7 @@ const readline = require('readline-sync');
 const VALID_CHOICES = ['rock', 'paper', 'scissors'];
 const CHOICE_KEYS = Object.keys(VALID_CHOICES);
 
-// Clear prompt from computer
+// Prompt decoration for clarity
 function prompt(msg) {
   console.log(`=> ${msg}`);
 }
