@@ -1,32 +1,21 @@
 /* eslint-disable max-len */
-/* Greeting a user
+[2, 11, 9, 4, 107, 21, 1].sort((a, b) => {
+  console.log(`a is ${a} and b is ${b}`);
+  return a - b;
+});
 
-- Write a program that will ask for user's name. The program will then greet the user.
-- If the user writes "name!" then the computer yells back to the user.
-
-Examples:
-What is your name? Bob
-Hello Bob.
-
-What is your name? Bob!
-HELLO BOB. WHY ARE WE SCREAMING?
-
-Input:
-- Name (ask user)
-
-Output:
-- Greeting
-
-Rules:
-- If input ends in "1", greet and yell back at the user
-*/
-
-const readline = require('readline-sync');
-
-const name = readline.question('What is your name? ');
-
-if (name[name.length - 1] !== '!') {
-  console.log(`Hello ${name}`);
-} else {
-  console.log(`HELLO ${name.slice(0, -1).toUpperCase()}. WHY ARE WE SCREAMING?`);
-}
+// a is 11 and b is 9
+// a is 2 and b is 9
+// a is 11 and b is 4
+// a is 9 and b is 4
+// a is 2 and b is 4
+// a is 11 and b is 107
+// a is 107 and b is 21
+// a is 11 and b is 21
+// a is 107 and b is 1
+// a is 21 and b is 1
+// a is 11 and b is 1
+// a is 9 and b is 1
+// a is 4 and b is 1
+// a is 2 and b is 1
+// => [ 1, 2, 4, 9, 11, 21, 107 ]
