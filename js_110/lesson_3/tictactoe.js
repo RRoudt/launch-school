@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 /* eslint-disable max-len */
 /* Lesson 3.4: Tic Tac Toe - Step 1 - Set up and display the board
 
@@ -43,40 +44,87 @@ Algorithm:
   - If not, ask the user to mark a square
 */
 
-function displayBoard(data) {
+const readline = require('readline-sync');
+const INITIAL_MARKER = ' ';
+const PLAYER_MARKER = 'X';
+const COMPUTER_MARKER = 'O';
+
+function displayBoard(board) {
   console.log('');
   console.log('     |     |     ');
-  console.log(`  ${data['topLeft']}  |  ${data['topCenter']}  |  ${data['topRight']}  `);
+  console.log(`  ${board['1']}  |  ${board['2']}  |  ${board['3']}  `);
   console.log('     |     |     ');
   console.log('-----|-----|-----');
   console.log('     |     |     ');
-  console.log(`  ${data['middleLeft']}  |  ${data['middleCenter']}  |  ${data['middleRight']}  `);
+  console.log(`  ${board['4']}  |  ${board['5']}  |  ${board['6']}  `);
   console.log('     |     |     ');
   console.log('-----|-----|-----');
   console.log('     |     |     ');
-  console.log(`  ${data['bottomLeft']}  |  ${data['bottomCenter']}  |  ${data['bottomRight']}  `);
+  console.log(`  ${board['7']}  |  ${board['8']}  |  ${board['9']}  `);
   console.log('     |     |     ');
   console.log('');
 }
 
-function initializeBoard(data) {
-  for (let square in data) {
-    data[square] = ' ';
+function initializeBoard(board) {
+  for (let square in board) {
+    board[square] = INITIAL_MARKER;
   }
 }
 
+function prompt(str) {
+  console.log(`=> ${str}`);
+}
+
+function validChoices(board) {
+  // Valid choices are the values that are still spaces (the initial marker)
+  return Object.keys(board).filter(key => board[key] === INITIAL_MARKER);
+}
+
+function playerChoosesSquare(board) {
+  let choice;
+
+  // Ask user to make a choice until a valid input is given
+  while (true) {
+    prompt(`Choose a square (${validChoices(board).join(', ')})`);
+    prompt(`${board['1'] === ' ' ? '1' : ' '}|${board['2'] === ' ' ? '2' : ' '}|${board['3'] === ' ' ? '3' : ' '}`);
+    prompt('-|-|-');
+    prompt(`${board['4'] === ' ' ? '4' : ' '}|${board['5'] === ' ' ? '5' : ' '}|${board['6'] === ' ' ? '6' : ' '}`);
+    prompt('-|-|-');
+    prompt(`${board['7'] === ' ' ? '7' : ' '}|${board['8'] === ' ' ? '8' : ' '}|${board['9'] === ' ' ? '9' : ' '}`);
+    choice = readline.question().trim();
+
+    // Check whether the user choice is valid
+    if (validChoices(board).includes(choice)) break;
+    prompt("Sorry, that's not a valid choice.");
+  }
+
+  board[choice] = PLAYER_MARKER;
+}
+
+function computerChoosesSquare(board) {
+  let remainingValidChoices = validChoices(board);
+
+  // Generate a random number, based on amount of valid choices left
+  let randomIndex = Math.floor(Math.random() * remainingValidChoices.length);
+  let square = remainingValidChoices[randomIndex];
+
+  board[square] = COMPUTER_MARKER;
+}
+
 let boardData = {
-  topLeft:      ' ',
-  topCenter:    ' ',
-  topRight:     ' ',
-  middleLeft:   ' ',
-  middleCenter: ' ',
-  middleRight:  ' ',
-  bottomLeft:   ' ',
-  bottomCenter: ' ',
-  bottomRight:  ' ',
+  1: ' ',  // top left
+  2: ' ',  // top center
+  3: ' ',  // top right
+  4: ' ',  // middle left
+  5: ' ',  // middle center
+  6: ' ',  // middle right
+  7: ' ',  // bottom left
+  8: ' ',  // bottom center
+  9: ' ',  // bottom right
 };
 
 initializeBoard(boardData);
-
+displayBoard(boardData);
+playerChoosesSquare(boardData);
+computerChoosesSquare(boardData);
 displayBoard(boardData);
