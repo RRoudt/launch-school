@@ -50,6 +50,7 @@ const PLAYER_MARKER = 'X';
 const COMPUTER_MARKER = 'O';
 
 function displayBoard(board) {
+  console.clear();
   console.log('');
   console.log('     |     |     ');
   console.log(`  ${board['1']}  |  ${board['2']}  |  ${board['3']}  `);
@@ -65,10 +66,14 @@ function displayBoard(board) {
   console.log('');
 }
 
-function initializeBoard(board) {
-  for (let square in board) {
-    board[square] = INITIAL_MARKER;
+function initializeBoard() {
+  let board = {};
+
+  for (let square = 1; square <= 9; square++) {
+    board[String(square)] = INITIAL_MARKER;
   }
+
+  return board;
 }
 
 function prompt(str) {
@@ -111,20 +116,22 @@ function computerChoosesSquare(board) {
   board[square] = COMPUTER_MARKER;
 }
 
-let boardData = {
-  1: ' ',  // top left
-  2: ' ',  // top center
-  3: ' ',  // top right
-  4: ' ',  // middle left
-  5: ' ',  // middle center
-  6: ' ',  // middle right
-  7: ' ',  // bottom left
-  8: ' ',  // bottom center
-  9: ' ',  // bottom right
-};
+function boardFull(board) {
+  // When there are no more valid choices, that means the board is full
+  return validChoices(board).length === 0;
+}
 
-initializeBoard(boardData);
-displayBoard(boardData);
-playerChoosesSquare(boardData);
-computerChoosesSquare(boardData);
-displayBoard(boardData);
+function someoneWon(board) {
+  return false;
+}
+
+let board = initializeBoard();
+displayBoard(board);
+
+while (true) {
+  playerChoosesSquare(board);
+  computerChoosesSquare(board);
+  displayBoard(board);
+
+  if (someoneWon(board) || boardFull(board)) break;
+}
