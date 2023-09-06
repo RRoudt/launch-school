@@ -48,11 +48,16 @@ Helper functions:
 - joinOr
   - Get an array of values: arr
   - Get a delimiter: delimiter
-  - Get a joining word for the last element: joiningWord
+  - Get a joining word for the last element: joinerWord
   - Set a new empty string: outputStr
-  - Iterate over arr, until the second to last element
-    - Add the current element plus the delimiter to outputStr
-  - Add joiningWord plus the last element to the outputStr
+  - Check length of arr
+    - If empty, set outputStr to an empty string
+    - If one, set outputStr to that value as string
+    - If two, set outputStr to those values separated by joinerWord
+    - Else:
+      - Iterate over arr, until the second to last element
+        - Add the current element plus the delimiter to outputStr
+      - Add joinerWord plus the last element to the outputStr
   - Return outputStr
 */
 
@@ -93,14 +98,21 @@ function prompt(str) {
   console.log(`=> ${str}`);
 }
 
-function joinOr(arr, delimiter = ', ', joiningWord = 'or') {
+function joinOr(arr, delimiter = ', ', joinerWord = 'or') {
   let outputStr = '';
 
-  for (let index = 0; index < arr.length - 1; index++) {
-    outputStr += arr[index] + delimiter;
+  if (arr.length === 0) {
+    outputStr = '';
+  } else if (arr.length === 1) {
+    outputStr = String(arr[0]);
+  } else if (arr.length === 2) {
+    outputStr = `${arr[0]} ${joinerWord} ${arr[1]}`;
+  } else {
+    for (let index = 0; index < arr.length - 1; index++) {
+      outputStr += arr[index] + delimiter;
+    }
+    outputStr += joinerWord + ' ' + arr[arr.length - 1];
   }
-
-  outputStr += joiningWord + ' ' + arr[arr.length - 1];
 
   return outputStr;
 }
