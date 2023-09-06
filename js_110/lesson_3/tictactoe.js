@@ -93,7 +93,7 @@ function prompt(str) {
   console.log(`=> ${str}`);
 }
 
-function joinOr(arr, delimiter, joiningWord) {
+function joinOr(arr, delimiter = ', ', joiningWord = 'or') {
   let outputStr = '';
 
   for (let index = 0; index < arr.length - 1; index++) {
@@ -115,7 +115,7 @@ function playerChoosesSquare(board) {
 
   // Ask user to make a choice until a valid input is given
   while (true) {
-    prompt(`Choose a square (${joinOr(validChoices(board), ', ', 'or')})`);
+    prompt(`Choose a square (${joinOr(validChoices(board))})`);
     prompt(`${board['1'] === ' ' ? '1' : ' '}|${board['2'] === ' ' ? '2' : ' '}|${board['3'] === ' ' ? '3' : ' '}`);
     prompt('-|-|-');
     prompt(`${board['4'] === ' ' ? '4' : ' '}|${board['5'] === ' ' ? '5' : ' '}|${board['6'] === ' ' ? '6' : ' '}`);
