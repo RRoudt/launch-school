@@ -34,6 +34,7 @@ Data:
 - Object to store board data
 
 Algorithm:
+Main game loop:
 - Initialize an empty board
   - Set every value in the board data object to a space
   - Output the board template to the console: displayBoard
@@ -42,6 +43,17 @@ Algorithm:
 - Check whether there's a winner
   - If yes,
   - If not, ask the user to mark a square
+
+Helper functions:
+- joinOr
+  - Get an array of values: arr
+  - Get a delimiter: delimiter
+  - Get a joining word for the last element: joiningWord
+  - Set a new empty string: outputStr
+  - Iterate over arr, until the second to last element
+    - Add the current element plus the delimiter to outputStr
+  - Add joiningWord plus the last element to the outputStr
+  - Return outputStr
 */
 
 const readline = require('readline-sync');
@@ -81,6 +93,18 @@ function prompt(str) {
   console.log(`=> ${str}`);
 }
 
+function joinOr(arr, delimiter, joiningWord) {
+  let outputStr = '';
+
+  for (let index = 0; index < arr.length - 1; index++) {
+    outputStr += arr[index] + delimiter;
+  }
+
+  outputStr += joiningWord + ' ' + arr[arr.length - 1];
+
+  return outputStr;
+}
+
 function validChoices(board) {
   // Valid choices are the values that are still spaces (the initial marker)
   return Object.keys(board).filter(key => board[key] === INITIAL_MARKER);
@@ -91,7 +115,7 @@ function playerChoosesSquare(board) {
 
   // Ask user to make a choice until a valid input is given
   while (true) {
-    prompt(`Choose a square (${validChoices(board).join(', ')})`);
+    prompt(`Choose a square (${joinOr(validChoices(board), ', ', 'or')})`);
     prompt(`${board['1'] === ' ' ? '1' : ' '}|${board['2'] === ' ' ? '2' : ' '}|${board['3'] === ' ' ? '3' : ' '}`);
     prompt('-|-|-');
     prompt(`${board['4'] === ' ' ? '4' : ' '}|${board['5'] === ' ' ? '5' : ' '}|${board['6'] === ' ' ? '6' : ' '}`);
@@ -123,6 +147,7 @@ function boardFull(board) {
 }
 
 function detectWinner(board) {
+  // Combinations of winning lines
   let winningLines = [
     [1, 2, 3], [4, 5, 6], [7, 8, 9],  // rows
     [1, 4, 7], [2, 5, 8], [3, 6, 9],  // columns
