@@ -18,9 +18,8 @@ Data:
 Algorithm:
 - Get a string: name
 - Turn name into an array, splitting on a space: nameArr
-- Reverse the nameArr
-- Turn nameArr into a string, separating the elements by a comma and space
-  - Return this
+- Get and remove the last name from the nameArr: lastName
+- Return the lastName plus the first name(s)
 */
 
 function swapName(name) {
