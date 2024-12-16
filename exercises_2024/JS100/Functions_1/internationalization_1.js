@@ -2,9 +2,9 @@
 Write a function that takes an ISO 639-1 language code and returns a greeting in that language.
 
 Rules:
-- Write a function
-- Accept a two-letter (ISO 639-1) language code as an argument
-- Return a greeting based on the language in the argument
++ Write a function
++ Accept a two-letter (ISO 639-1) language code as an argument
++ Return a greeting based on the language in the argument
 */
 
 function greet(language) {
