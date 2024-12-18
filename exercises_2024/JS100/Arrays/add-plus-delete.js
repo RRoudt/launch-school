@@ -21,7 +21,7 @@ Data:
 let energy = ['fossil', 'solar', 'wind', 'tidal', 'fusion'];
 
 energy.shift();
-energy.unshift('geothermal');
+energy.push('geothermal');
 
 // Test case
-console.log(energy); // ['geothermal', 'solar', 'wind', 'tidal', 'fusion'];
+console.log(energy); // ['solar', 'wind', 'tidal', 'fusion', 'geothermal'];
