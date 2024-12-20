@@ -21,6 +21,16 @@ Algorithm:
   + Log the current counter value
 */
 
-for (let counter = 1; counter <= 99; counter += 2) {
-  console.log(counter);
-}
+// for (let counter = 1; counter <= 99; counter += 2) {
+//   console.log(counter);
+// }
+
+/* Further exploration
+Repeat this exercise with a technique different from the one that you used, and different from the one provided. Also consider adding a way for the user to specify the limits of the odd numbers logged to the console.
+*/
+
+let numbers = [...Array(100).keys()];
+
+numbers.forEach(num => {
+  if (num % 2 === 1) console.log(num);
+});
