@@ -1,7 +1,8 @@
 // JS101 - Lesson 2.16: Calculator Bonus Features
 
 const readline = require('readline-sync');
-const msg = require('./calculator-messages.json')
+const msg = require('./calculator-messages.json');
+const lang = "nl";
 
 function prompt(message) {
   console.log(`=> ${message}`)
@@ -15,31 +16,31 @@ let continueCalculating = 'y';
 
 do {
   // Greet the user
-  prompt(msg.welcome);
+  prompt(msg[lang].welcome);
 
   // Ask the user for the first number.
-  prompt(msg.firstNumberPrompt);
+  prompt(msg[lang].firstNumberPrompt);
   let number1 = readline.question();
 
   while (invalidNumber(number1)) {
-    prompt(msg.invalidNumber);
+    prompt(msg[lang].invalidNumber);
     number1 = readline.question();
   }
 
   // Ask the user for the second number.
-  prompt(msg.secondNumberPrompt);
+  prompt(msg[lang].secondNumberPrompt);
   let number2 = readline.question();
 
   while (invalidNumber(number2)) {
-    prompt(msg.invalidNumber);
+    prompt(msg[lang].invalidNumber);
     number2 = readline.question();
   }
 
   // Ask the user for an operation to perform.
-  prompt(msg.operationPrompt);
+  prompt(msg[lang].operationPrompt);
   let operation = readline.question();
   while(!['1', '2', '3', '4'].includes(operation)) {
-    prompt(msg.invalidOperation);
+    prompt(msg[lang].invalidOperation);
       operation = readline.question();
   }
 
@@ -63,6 +64,6 @@ do {
   // Print the result to the terminal.
   console.log(result);
 
-  prompt(msg.continueCalculating);
+  prompt(msg[lang].continueCalculating);
   continueCalculating = readline.prompt().toLowerCase();
 } while (continueCalculating === 'y');
