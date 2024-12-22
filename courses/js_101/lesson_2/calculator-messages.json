@@ -4,6 +4,7 @@
     "firstNumberPrompt": "What's the first number?",
     "secondNumberPrompt": "What's the second number?",
     "operationPrompt": "What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide",
+    "invalidLang": "Hmm... that doesn't look like a valid language.",
     "invalidNumber": "Hmm... that doesn't look like a valid number.",
     "invalidOperation": "Hmm... that doesn't look like a valid operation. Please choose a valid one:\n1) Add 2) Subtract 3) Multiply 4) Divide",
     "continueCalculating": "Continue calculating? (y/n)?"
@@ -13,6 +14,7 @@
     "firstNumberPrompt": "Wat is het eerste nummer?",
     "secondNumberPrompt": "Wat is het tweede nummer?",
     "operationPrompt": "Wat voor berekening wil je uitvoeren?\n1) Optellen 2) Aftrekken 3) Vermenigvuldigen 4) Delen",
+    "invalidLang": "Hmm... dat lijkt niet op een geldige taal.",
     "invalidNumber": "Hmm... dat lijkt niet op een geldig nummer.",
     "invalidOperation": "Hmm... dat lijkt niet op een geldige berekening. Kies alsjeblieft een geldige:\n1) Optellen 2) Aftrekken 3) Vermenigvuldigen 4) Delen",
     "continueCalculating": "Doorgaan met rekenen? (y/n)?"

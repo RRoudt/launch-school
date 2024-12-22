@@ -2,7 +2,6 @@
 
 const readline = require('readline-sync');
 const msg = require('./calculator-messages.json');
-const lang = "nl";
 
 function prompt(message) {
   console.log(`=> ${message}`)
@@ -15,6 +14,14 @@ function invalidNumber(number) {
 let continueCalculating = 'y';
 
 do {
+  // Give user language selection
+  let langOptions = Object.keys(msg);
+  let lang = '';
+  while(!langOptions.includes(lang)) {
+    prompt(`Pick a language: ${langOptions.join(', ')}`);
+    lang = readline.question();
+  }
+
   // Greet the user
   prompt(msg[lang].welcome);
 
