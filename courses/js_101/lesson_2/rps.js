@@ -10,7 +10,7 @@ Algorithm:
 */
 
 const readline = require('readline-sync');
-const VALID_CHOICES= ['rock', 'paper', 'scissors'];
+const VALID_CHOICES = ['rock', 'paper', 'scissors'];
 
 function prompt(message) {
   console.log(`=> ${message}`);
@@ -20,11 +20,11 @@ function displayWinner(userChoice, computerChoice) {
   prompt(`You chose: ${userChoice}. Computer chose: ${computerChoice}`);
 
   if ((userChoice === 'rock' && computerChoice === 'scissors') ||
-      (userChoice === 'paper' && computerChoice === 'rock') || 
+      (userChoice === 'paper' && computerChoice === 'rock') ||
       (userChoice === 'scissors' && computerChoice === 'paper')) {
     prompt(`🥳 You won!`);
   } else if ((userChoice === 'rock' && computerChoice === 'paper') ||
-            (userChoice === 'paper' && computerChoice === 'scissors') || 
+            (userChoice === 'paper' && computerChoice === 'scissors') ||
             (userChoice === 'scissors' && computerChoice === 'rock')) {
     prompt(`🤖 Computer won!`);
   } else {
@@ -34,7 +34,7 @@ function displayWinner(userChoice, computerChoice) {
 
 while (true) {
   prompt(`Welcome to RPS!`);
-  prompt(`Here are your choices:`)
+  prompt(`Here are your choices:`);
   let userChoice = VALID_CHOICES[readline.keyInSelect(VALID_CHOICES, ('=> Choose one'))];
 
   if (userChoice === undefined) break;
