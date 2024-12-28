@@ -31,10 +31,7 @@ Display a string containing the random number: `Teddy is xx years old!`
 
 function randomBetween(min, max) {
   if (min > max) {
-    let minSwap = min;
-    let maxSwap = max;
-    min = maxSwap;
-    max = minSwap;
+    [min, max] = [max, min];
   }
 
   return Math.floor((Math.random() * ((max - min) + 1)) + min);
