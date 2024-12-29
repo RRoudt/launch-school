@@ -15,9 +15,6 @@ Output:
 Rules:
 - Consecutive non-alphabetic characters should be reduces to a single space
 
-Questions:
--
-
 Data:
 - String (input)
 - String (processing)
