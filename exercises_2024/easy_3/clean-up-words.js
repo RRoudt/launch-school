@@ -28,6 +28,8 @@ Iterate over inputString:
     Add current character to outputString
   Else if current character is non-alphabetic and if previous character was alphabetic:
     Add a space to outputString
+  Endif
+Enditeration
 */
 
 function isAlphabetic(str) {
