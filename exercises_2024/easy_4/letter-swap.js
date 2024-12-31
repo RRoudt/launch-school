@@ -65,7 +65,7 @@ function swap(inputString) {
     let firstLetter = word[0];
     let lastLetter = word[word.length - 1];
 
-    let letterSwappedWord = lastLetter + word.slice(1, word.length - 1) + firstLetter;
+    let letterSwappedWord = lastLetter + word.slice(1, -1) + firstLetter;
 
     stringArr[index] = letterSwappedWord;
   }
