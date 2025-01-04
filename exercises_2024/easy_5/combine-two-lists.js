@@ -38,9 +38,9 @@ Return outputArray
 function interleave(inputArray1, inputArray2) {
   let outputArray = [];
 
-  for (let index = 0; index < inputArray1.length; index += 1) {
-    outputArray.push(inputArray1[index], inputArray2[index]);
-  }
+  inputArray1.forEach((element, index) => {
+    outputArray.push(element, inputArray2[index]);
+  });
 
   return outputArray;
 }
