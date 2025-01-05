@@ -38,9 +38,7 @@ Return sum / the length of the input array, rounded down
 function average(inputArray) {
   let sum = 0;
 
-  for (let num of inputArray) {
-    sum += num;
-  }
+  inputArray.forEach(num => sum += num);
 
   return Math.floor(sum / inputArray.length);
 }
