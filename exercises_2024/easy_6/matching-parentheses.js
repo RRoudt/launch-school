@@ -26,61 +26,36 @@ Data:
 
 Algorithm:
 Get a string: inputString
-Set an empty array: parenthesesArray
+Set an empty (0) number variable: numParentheses
 Iterate over inputString:
-  If current character is '(' or ')':
-    Add current character to parenthesesArray
+  If current character === '(':
+    Increment numParentheses by 1
+  Else if current character === ')':
+    Decrement numParentheses by 1
   Endif
-Enditerate
-If parenthesesArray is of uneven length:
-  Return false
-Else if parenthesesArray is of length 2:
-  If the first element of parenthesesArray is not '(' and the second element of parenthesesArray is not ')':
-    Retur nfalse
-Else:
-  Set a variable to parenthesesArray.length / 2: middleIndex
-  Split parenthesesArray into to halves:
-    parenthesesSubArray1 = first element until middleIndex
-    parenthesesSubArray2 = middleIndex until end, then this array reversed
-  Iterate over parenthesesSubArray1:
-    If the element with the current index is not the same as the element with the current index in parenthesesSubArray2:
-      Return false
-Endif
-Return true
+  If numParentheses < 0:
+    Return false
+  Endif
+Return true if numParentheses === 0
 */
 
-function getParenthesesArray(string) {
-  let parenthesesArray = [];
 
-  for (let char of string) {
-    if (char === '(' || char === ')') {
-      parenthesesArray.push(char);
-    }
-  }
-
-  return parenthesesArray;
-}
 
 function isBalanced(inputString) {
-  let parenthesesArray = getParenthesesArray(inputString);
+  let numParentheses = 0;
 
-  if (parenthesesArray.length % 2 === 1) {
-    return false;
-  } else if (parenthesesArray.length === 2) {
-    if (parenthesesArray[0] !== '(' && parenthesesArray[1] !== ')') return false;
-  } else {
-    const middleIndex = parenthesesArray.length / 2;
-    let parenthesesSubArray1 = parenthesesArray.slice(0, middleIndex);
-    let parenthesesSubArray2 = parenthesesArray.slice(middleIndex).reverse();
-
-    for (let index = 0; index < parenthesesSubArray1.length; index += 1) {
-      if (parenthesesSubArray1[index] === parenthesesSubArray2[index]) {
-        return false;
-      }
+  for (let char of inputString) {
+    if (char === '(') {
+      numParentheses += 1;
+    } else if (char === ')') {
+      numParentheses -= 1;
+    }
+    if (numParentheses < 0) {
+      return false;
     }
   }
 
-  return true;
+  return numParentheses === 0;
 
 }
 
