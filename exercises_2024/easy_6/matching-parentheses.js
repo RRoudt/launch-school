@@ -12,9 +12,6 @@ Output:
   - True if parentheses are balanced
   - False if parentheses aren't balanced
 
-Rules:
-- 
-
 Questions:
 Q: When are parentheses balanced?
   A: When there are no overlapping opening and closing parentheses, or when the opening and closing parentheses are swapped
@@ -50,9 +47,8 @@ function isBalanced(inputString) {
     } else if (char === ')') {
       numParentheses -= 1;
     }
-    if (numParentheses < 0) {
-      return false;
-    }
+
+    if (numParentheses < 0) return false;
   }
 
   return numParentheses === 0;
