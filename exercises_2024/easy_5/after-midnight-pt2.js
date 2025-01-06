@@ -17,9 +17,7 @@ Output:
 Rules:
 - Return an integer
 - Don't use any Date class methods
-
-Questions:
--
+- Depending on the function, return the number of minute before or after midnight
 
 Data:
 - String (input)
@@ -60,8 +58,8 @@ function afterMidnight(inputTimeString) {
   const MINUTES_IN_HOUR = 60;
   const HOURS_IN_DAY = 24;
   const MINUTES_IN_DAY = MINUTES_IN_HOUR * HOURS_IN_DAY;
+  
   let outputMinutes = 0;
-
   let [inputHours, inputMinutes] = inputTimeString.split(':').map(num => Number(num));
   outputMinutes = inputHours * MINUTES_IN_HOUR;
   outputMinutes += inputMinutes;
@@ -73,12 +71,9 @@ function beforeMidnight(inputTimeString) {
   const MINUTES_IN_HOUR = 60;
   const HOURS_IN_DAY = 24;
   const MINUTES_IN_DAY = MINUTES_IN_HOUR * HOURS_IN_DAY;
+  
   let outputMinutes = MINUTES_IN_DAY;
-
-  let [inputHours, inputMinutes] = inputTimeString.split(':');
-  inputHours = Number(inputHours);
-  inputMinutes = Number(inputMinutes);
-
+  let [inputHours, inputMinutes] = inputTimeString.split(':').map(num => Number(num));
   outputMinutes -= inputHours * MINUTES_IN_HOUR;
   outputMinutes -= inputMinutes;
 
