@@ -28,9 +28,9 @@ Data:
 
 Algorithm:
 Get an integer: inputMinutes
-Set a constant, containing the number of minutes in an hour (60): MINUTES_IN_DAY
+Set a constant, containing the number of minutes in an hour (60): MINUTES_IN_HOUR
 Set a constant, containing the number of hours in a day (24): HOURS_IN_DAY
-Set a constant, containing the number of minutes in a day (MINUTES_IN_DAY * HOURS_IN_DAY): MINUTES_IN_DAY
+Set a constant, containing the number of minutes in a day (MINUTES_IN_HOUR * HOURS_IN_DAY): MINUTES_IN_DAY
 Set a variable to 0, to contain the amount of minutes remaining after subtracting the inputMinutes from total number of minutes in a day: remainingMinutes
 If inputMinutes is 0 or negative:
   Subtract the absolute value of inputMinutes from MINUTES_IN_DAY, then take the remainder of that divided by minutes in day, and store it in remainingMinutes
