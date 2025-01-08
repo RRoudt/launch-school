@@ -22,9 +22,6 @@ Rules:
               "d", "de",
               "e"]
 
-Questions:
--
-
 Data:
 - String (input)
 - Strings (array elements)
