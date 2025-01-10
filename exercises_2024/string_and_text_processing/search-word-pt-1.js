@@ -21,6 +21,8 @@ Rules:
 - Words are separated by spaces
 - Only count word is whole word matches (ignoring interpunction)
 - Search should be case-insensitive
+- Account of one or both arguments missing
+- If both arguments are missing, return 0
 
 Algorithm:
 Get an inputWord
