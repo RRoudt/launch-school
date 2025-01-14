@@ -28,7 +28,36 @@ Display the initial empty 3x3 board:
     End looping
     Return the generated (empty) board, and store it to a variable
   Display the board, based on the empty board values
+
+Ask player to mark a square:
+  Get a board as input: board
+  Set an emty variable to store the player choice: square
+  While board doesn't have square as a key OR square is not marked by the player or computer:
+    Ask user to pick a square
+  End while
+  Set square on board to player choice
+
+Let computer mark a square:
+  Get the available squares
+  Pick a random available square:
+    Generate a number between 0 and the number of available squares
+  Set the square on the board to the picked square
 */
+ 
+const readline = require('readline-sync');
+const PLAYER_MARKER = '🆇';
+const COMPUTER_MARKER = '🅾';
+
+function prompt(msg) {
+  return console.log(`=> ${msg}`);
+}
+
+function availableSquares(board) {
+  return Object.keys(board)
+               .filter(key => {
+                 return board[key] !== PLAYER_MARKER && board[key]  !== COMPUTER_MARKER
+                });
+}
 
 function displayBoard(board) {
   console.log('');
@@ -50,12 +79,44 @@ function initializeBoard() {
   let board = {};
 
   for (let square = 1; square <= 9; square++) {
-    board[String(square)] = ' ';
+    board[String(square)] = square;
   }
 
   return board;
 }
 
+
+function playerChoosesSquare(board) {
+  let square;
+
+  while (!board[square] || board[square] === PLAYER_MARKER || board[square] === COMPUTER_MARKER) {
+    prompt(`Choose an available square
+      (${availableSquares(board).join(', ')}):`);
+    
+    square = readline.question().trim();
+
+    displayBoard(board);
+
+    if (!board[square] || board[square] === PLAYER_MARKER || board[square] === COMPUTER_MARKER) {
+      prompt("That's not a valid choice");
+    }
+  }
+
+  board[square] = PLAYER_MARKER;
+}
+
+function computerChoosesSquare(board) {
+  let randomIndex = Math.floor(Math.random() * availableSquares(board).length);
+
+  let square = availableSquares(board)[randomIndex];
+
+  board[square] = COMPUTER_MARKER;
+}
+
 let board = initializeBoard();
 
+displayBoard(board);
+playerChoosesSquare(board);
+displayBoard(board);
+computerChoosesSquare(board);
 displayBoard(board);
