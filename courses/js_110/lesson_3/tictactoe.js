@@ -48,7 +48,11 @@ Display the updated board until there's a winner or a tie:
   Let computer mark a square
   Display the board
   Check if someone won:
-
+    If there is a winner:
+      Return true
+    Else:
+      Return false
+    Endif
   Check if the board is full:
     If the are no more available squares:
       The board is full
@@ -56,6 +60,15 @@ Display the updated board until there's a winner or a tie:
       The board is not full
     End if
 
+Detect winner:
+  Set a constant containing the winning lines: WINNING_LINES
+  If the human marker fully occupies a winning line:
+    Return "Player"
+  Else if the computer marker fully occupies a winning line:
+    Return "Computer"
+  Else:
+    Return null
+  Endif
 */
  
 const readline = require('readline-sync');
@@ -69,6 +82,7 @@ function prompt(msg) {
 function displayBoard(board) {
 console.clear();
 
+  console.log(`You are: ${PLAYER_MARKER}. Computer is: ${COMPUTER_MARKER}`);
   console.log('');
   console.log('     |     |');
   console.log(`  ${board['1']}  |  ${board['2']}  |  ${board['3']}`);
@@ -132,17 +146,64 @@ function boardFull(board) {
   return availableSquares(board).length === 0;
 }
 
-function someoneWon(board) {
-  return false;
+function detectWinner(board) {
+  const WINNING_LINES = [
+    [1, 2, 3], [4, 5, 6], [7, 8, 9],  // Rows
+    [1, 4, 7], [2, 5, 8], [3, 6, 9],  // Columns
+    [1, 5, 9], [3, 5, 7]              // Diagnals
+  ];
+
+  for (let line of WINNING_LINES) {
+    let [sq1, sq2, sq3] = line;
+
+    if (
+      board[sq1] === PLAYER_MARKER &&
+      board[sq2] === PLAYER_MARKER &&
+      board[sq3] === PLAYER_MARKER
+    ) {
+      return "Player";
+    } else if (
+      board[sq1] === COMPUTER_MARKER &&
+      board[sq2] === COMPUTER_MARKER &&
+      board[sq3] === COMPUTER_MARKER
+    ) {
+      return "Computer";
+    }
+  }
+
+  return null;
 }
 
-let board = initializeBoard();
-displayBoard(board);
+function someoneWon(board) {
+  return !!detectWinner(board);
+}
 
 while (true) {
-  playerChoosesSquare(board);
-  computerChoosesSquare(board);
+  let board = initializeBoard();
+  
+  while (true) {
+    displayBoard(board);
+    
+    playerChoosesSquare(board);
+    if (someoneWon(board) || boardFull(board)) break;
+  
+    computerChoosesSquare(board);
+    displayBoard(board);
+  
+    if (someoneWon(board) || boardFull(board)) break;
+  }
+  
   displayBoard(board);
+  
+  if (someoneWon(board)) {
+    prompt(`${detectWinner(board)} won!`);
+  } else {
+    prompt("It's a tie!");
+  }
 
-  if (someoneWon(board) || boardFull(board)) break;
+  prompt("Play again? (y/n)");
+  let playAgain = readline.question().toLowerCase()[0];
+  if (playAgain !== 'y') break;
 }
+
+prompt("Thanks for playing Tic Tac Toe!");
