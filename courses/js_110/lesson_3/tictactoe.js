@@ -66,13 +66,6 @@ function prompt(msg) {
   return console.log(`=> ${msg}`);
 }
 
-function availableSquares(board) {
-  return Object.keys(board)
-               .filter(key => {
-                 return board[key] !== PLAYER_MARKER && board[key]  !== COMPUTER_MARKER
-                });
-}
-
 function displayBoard(board) {
 console.clear();
 
@@ -99,6 +92,13 @@ function initializeBoard() {
   }
 
   return board;
+}
+
+function availableSquares(board) {
+  return Object.keys(board)
+               .filter(key => {
+                 return board[key] !== PLAYER_MARKER && board[key]  !== COMPUTER_MARKER
+                });
 }
 
 function playerChoosesSquare(board) {
