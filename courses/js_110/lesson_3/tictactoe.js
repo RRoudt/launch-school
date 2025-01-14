@@ -42,6 +42,20 @@ Let computer mark a square:
   Pick a random available square:
     Generate a number between 0 and the number of available squares
   Set the square on the board to the picked square
+
+Display the updated board until there's a winner or a tie:
+  Ask player to mark a square
+  Let computer mark a square
+  Display the board
+  Check if someone won:
+
+  Check if the board is full:
+    If the are no more available squares:
+      The board is full
+    Else:
+      The board is not full
+    End if
+
 */
  
 const readline = require('readline-sync');
@@ -60,6 +74,8 @@ function availableSquares(board) {
 }
 
 function displayBoard(board) {
+console.clear();
+
   console.log('');
   console.log('     |     |');
   console.log(`  ${board['1']}  |  ${board['2']}  |  ${board['3']}`);
@@ -84,7 +100,6 @@ function initializeBoard() {
 
   return board;
 }
-
 
 function playerChoosesSquare(board) {
   let square;
@@ -113,10 +128,21 @@ function computerChoosesSquare(board) {
   board[square] = COMPUTER_MARKER;
 }
 
-let board = initializeBoard();
+function boardFull(board) {
+  return availableSquares(board).length === 0;
+}
 
+function someoneWon(board) {
+  return false;
+}
+
+let board = initializeBoard();
 displayBoard(board);
-playerChoosesSquare(board);
-displayBoard(board);
-computerChoosesSquare(board);
-displayBoard(board);
+
+while (true) {
+  playerChoosesSquare(board);
+  computerChoosesSquare(board);
+  displayBoard(board);
+
+  if (someoneWon(board) || boardFull(board)) break;
+}
