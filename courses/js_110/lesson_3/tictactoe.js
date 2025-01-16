@@ -110,17 +110,17 @@ If player has two squares filled in row AND third square is available:
 Else:
   Return null and pick a random available square 
 */
- 
+
 const readline = require('readline-sync');
 const PLAYER_MARKER = '□';
 const COMPUTER_MARKER = '■';
 const MAX_GAMES = 5;
 const WINNING_SCORE = Math.ceil(MAX_GAMES / 2);
 const WINNING_LINES = [
-    ['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'],  // Rows
-    ['1', '4', '7'], ['2', '5', '8'], ['3', '6', '9'],  // Columns
-    ['1', '5', '9'], ['3', '5', '7']                    // Diagonals
-  ];
+  ['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'],  // Rows
+  ['1', '4', '7'], ['2', '5', '8'], ['3', '6', '9'],  // Columns
+  ['1', '5', '9'], ['3', '5', '7']                    // Diagonals
+];
 
 function prompt(msg) {
   return console.log(`=> ${msg}`);
@@ -299,10 +299,14 @@ while (true) {
     prompt("It's a tie!");
   }
 
-  prompt("Play again? (y/n)");
-  let playAgain = readline.question().toLowerCase()[0];
-  if (playAgain !== 'y') break;
-}   
+  let playAgain = '';
 
+  while (playAgain !== 'y' && playAgain !== 'n') {
+    prompt("Play again? (y/n)");
+    playAgain = readline.question().toLowerCase()[0];
+  }
+
+  if (playAgain === 'n') break;
+}   
 
 prompt("Thanks for playing Tic Tac Toe!");
