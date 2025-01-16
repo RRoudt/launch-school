@@ -69,20 +69,74 @@ Detect winner:
   Else:
     Return null
   Endif
+
+joinOr function:
+Get a list of values: inputArr
+Get a separator and set it to ", " by default: separator
+Get a join word and set it to "or" by default: joinWord
+If inputArr is of length 0:
+  Return empty string
+If inputArr is of length 1:
+  Return only value of inputArr
+Else if inputArr is of length 2:
+  Return first element + separator + second element
+Else:
+  Return Join the joined together inputArray until the second to last element:
+  Use the separator to join the elements together, add the join word and last element
+
+Keep score:
+Set a variable to 0: playerScore
+Set a variable to 0: computerScope
+Set a constant to maximum games in match: MAX_GAMES
+Set a constant to games needed to win match ()MAX_GAMES / 2, rounded up): WINNING_SCORE
+If player wins:
+  Increment playerScore by 1
+Else if computer wins:
+  Increment computerScore by 1
+Else:
+  Increment playerScore by 1
+  Increment computerScore by 1
+End if
+If no one meets the winning condition:
+  Play again
+Else:
+  Show winner
 */
  
 const readline = require('readline-sync');
-const PLAYER_MARKER = '🆇';
-const COMPUTER_MARKER = '🅾';
+const PLAYER_MARKER = '□';
+const COMPUTER_MARKER = '■';
+const MAX_GAMES = 5;
+const WINNING_SCORE = Math.ceil(MAX_GAMES / 2);
 
 function prompt(msg) {
   return console.log(`=> ${msg}`);
 }
 
-function displayBoard(board) {
-console.clear();
+function delay(seconds) {
+  return new Promise(resolve => setTimeout(resolve, seconds * 1000));
+}
+
+function joinOr(inputArr, separator = ', ', joinWord = 'or') {
+  switch (inputArr.length) {
+    case 0:
+      return '';
+    case 1:
+      return `${inputArr[0]}`;
+    case 2:
+      return `${inputArr[0]} ${joinWord} ${inputArr[1]}`;
+    default:
+      return `${inputArr
+        .slice(0, -1)
+        .join(separator)} ${joinWord} ${inputArr[inputArr.length - 1]}`;
+  }
+}
+
+function displayBoard(board, playerScore, computerScore) {
+  console.clear();
 
   console.log(`You are: ${PLAYER_MARKER}. Computer is: ${COMPUTER_MARKER}`);
+  console.log(`Your score: ${playerScore}. Computer's score: ${computerScore}`);
   console.log('');
   console.log('     |     |');
   console.log(`  ${board['1']}  |  ${board['2']}  |  ${board['3']}`);
@@ -111,20 +165,20 @@ function initializeBoard() {
 function availableSquares(board) {
   return Object.keys(board)
                .filter(key => {
-                 return board[key] !== PLAYER_MARKER && board[key]  !== COMPUTER_MARKER
+                 return board[key] !== PLAYER_MARKER && board[key]  !== COMPUTER_MARKER;
                 });
 }
 
-function playerChoosesSquare(board) {
+function playerChoosesSquare(board, playerScore, computerScore) {
   let square;
 
   while (!board[square] || board[square] === PLAYER_MARKER || board[square] === COMPUTER_MARKER) {
     prompt(`Choose an available square
-      (${availableSquares(board).join(', ')}):`);
+   (${joinOr(availableSquares(board))}):`);
     
     square = readline.question().trim();
 
-    displayBoard(board);
+    displayBoard(board, playerScore, computerScore);
 
     if (!board[square] || board[square] === PLAYER_MARKER || board[square] === COMPUTER_MARKER) {
       prompt("That's not a valid choice");
@@ -150,7 +204,7 @@ function detectWinner(board) {
   const WINNING_LINES = [
     [1, 2, 3], [4, 5, 6], [7, 8, 9],  // Rows
     [1, 4, 7], [2, 5, 8], [3, 6, 9],  // Columns
-    [1, 5, 9], [3, 5, 7]              // Diagnals
+    [1, 5, 9], [3, 5, 7]              // Diagonals
   ];
 
   for (let line of WINNING_LINES) {
@@ -174,29 +228,41 @@ function detectWinner(board) {
   return null;
 }
 
-function someoneWon(board) {
-  return !!detectWinner(board);
-}
-
 while (true) {
+  let playerScore = 0;
+  let computerScore = 0;
   let board = initializeBoard();
-  
+
   while (true) {
-    displayBoard(board);
-    
-    playerChoosesSquare(board);
-    if (someoneWon(board) || boardFull(board)) break;
-  
+    displayBoard(board, playerScore, computerScore);
+
+    playerChoosesSquare(board, playerScore, computerScore);
     computerChoosesSquare(board);
-    displayBoard(board);
-  
-    if (someoneWon(board) || boardFull(board)) break;
+    displayBoard(board, playerScore, computerScore);
+
+    if (detectWinner(board) === "Player") {
+      playerScore += 1;
+      board = initializeBoard();
+    } else if (detectWinner(board) === "Computer") {
+      computerScore += 1;
+      board = initializeBoard();
+    } else if (boardFull(board)) {
+      playerScore += 1;
+      computerScore += 1;
+      board = initializeBoard();
+    }
+
+    if (playerScore === WINNING_SCORE || computerScore === WINNING_SCORE) break;
   }
-  
-  displayBoard(board);
-  
-  if (someoneWon(board)) {
-    prompt(`${detectWinner(board)} won!`);
+
+  displayBoard(board, playerScore, computerScore);
+
+
+
+  if (playerScore === WINNING_SCORE) {
+    prompt(`Player won!`);
+  } else if (computerScore === WINNING_SCORE) {
+    prompt(`Computer won!`);
   } else {
     prompt("It's a tie!");
   }
@@ -204,6 +270,7 @@ while (true) {
   prompt("Play again? (y/n)");
   let playAgain = readline.question().toLowerCase()[0];
   if (playAgain !== 'y') break;
-}
+}   
+
 
 prompt("Thanks for playing Tic Tac Toe!");
