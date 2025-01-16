@@ -101,6 +101,14 @@ If no one meets the winning condition:
   Play again
 Else:
   Show winner
+
+Computer AI: Defense
+Let's make the computer defensive-minded so that, when an immediate threat exists, it will try to defend the 3rd square. An immediate threat occurs when the human player has 2 squares in a row with the 3rd square unoccupied. If there's no immediate threat, the computer can pick a random square.
+Get the board
+If player has two squares filled in row AND third square is available:
+  Place computer marker in third square
+Else:
+  Return null and pick a random available square 
 */
  
 const readline = require('readline-sync');
@@ -108,13 +116,14 @@ const PLAYER_MARKER = '□';
 const COMPUTER_MARKER = '■';
 const MAX_GAMES = 5;
 const WINNING_SCORE = Math.ceil(MAX_GAMES / 2);
+const WINNING_LINES = [
+    ['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'],  // Rows
+    ['1', '4', '7'], ['2', '5', '8'], ['3', '6', '9'],  // Columns
+    ['1', '5', '9'], ['3', '5', '7']                    // Diagonals
+  ];
 
 function prompt(msg) {
   return console.log(`=> ${msg}`);
-}
-
-function delay(seconds) {
-  return new Promise(resolve => setTimeout(resolve, seconds * 1000));
 }
 
 function joinOr(inputArr, separator = ', ', joinWord = 'or') {
@@ -169,6 +178,34 @@ function availableSquares(board) {
                 });
 }
 
+function playerWinThreat(board) {
+  for (let line of WINNING_LINES) {
+    let [sq1, sq2, sq3] = line;
+
+    if (
+      availableSquares(board).includes(sq1) &&
+      board[sq2] === PLAYER_MARKER &&
+      board[sq3] === PLAYER_MARKER
+    ) {
+      return sq1;
+    } else if (
+      board[sq1] === PLAYER_MARKER &&
+      availableSquares(board).includes(sq2) &&
+      board[sq3] === PLAYER_MARKER
+    ) {
+      return sq2;
+    } else if (
+      board[sq1] === PLAYER_MARKER &&
+      board[sq2] === PLAYER_MARKER &&
+      availableSquares(board).includes(sq3)
+    ) {
+      return sq3;
+    }
+  }
+
+  return null;
+}
+
 function playerChoosesSquare(board, playerScore, computerScore) {
   let square;
 
@@ -190,8 +227,11 @@ function playerChoosesSquare(board, playerScore, computerScore) {
 
 function computerChoosesSquare(board) {
   let randomIndex = Math.floor(Math.random() * availableSquares(board).length);
+  let playerWinningSquare = playerWinThreat(board);
 
-  let square = availableSquares(board)[randomIndex];
+  let square = playerWinningSquare ?
+      playerWinningSquare :
+      availableSquares(board)[randomIndex];
 
   board[square] = COMPUTER_MARKER;
 }
@@ -201,12 +241,6 @@ function boardFull(board) {
 }
 
 function detectWinner(board) {
-  const WINNING_LINES = [
-    [1, 2, 3], [4, 5, 6], [7, 8, 9],  // Rows
-    [1, 4, 7], [2, 5, 8], [3, 6, 9],  // Columns
-    [1, 5, 9], [3, 5, 7]              // Diagonals
-  ];
-
   for (let line of WINNING_LINES) {
     let [sq1, sq2, sq3] = line;
 
@@ -256,8 +290,6 @@ while (true) {
   }
 
   displayBoard(board, playerScore, computerScore);
-
-
 
   if (playerScore === WINNING_SCORE) {
     prompt(`Player won!`);
