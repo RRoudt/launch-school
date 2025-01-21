@@ -3,3 +3,8 @@ db/*.sqlite3
 
 # Ignore that pesky DS_Store
 .DS_Store
+
+# Ignore recovery files created by Emacs
+\#*
+.#*
+*~
