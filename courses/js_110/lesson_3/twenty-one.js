@@ -1,10 +1,9 @@
 /*
 
 Instructions:
-Build a simple game similar to Blackjack, without splits, double-downs, or other complex plays. Only hit and stay are given choices
-
-Questions:
-
+- Build a simple game similar to Blackjack
+  - Without splits, double-downs, or other complex plays
+- Only hit and stay are given choices
 
 Rules:
 - The goal of the game is to get 21 or close
@@ -19,7 +18,7 @@ Rules:
 - The player always goes first and decided to hit or stay
 - The dealer will hit until it has at least 17
 - If the dealer busts, the player wins
-- Once both of the player and dealer stay, the winner is the one with the most poitns
+- If  player and dealer stay, the one with the most points wins
 
 Data:
 Input: Player choice (hit or stay)
@@ -64,10 +63,10 @@ Remove a card from shuffledCards and store it in the hand
 
 const readline = require("readline-sync");
 const ALL_CARDS = [
-    ['♥', '1'], ['♥', '2'], ['♥', '3'], ['♥', '4'], ['♥', '5'], ['♥', '6'], ['♥', '7'], ['♥', '8'], ['♥', '9'], ['♥', '10'], ['♥', 'J'], ['♥', 'Q'], ['♥', 'K'], ['♥', 'A'],  
-    ['♦', '1'], ['♦', '2'], ['♦', '3'], ['♦', '4'], ['♦', '5'], ['♦', '6'], ['♦', '7'], ['♦', '8'], ['♦', '9'], ['♦', '10'], ['♦', 'J'], ['♦', 'Q'], ['♦', 'K'], ['♦', 'A'],
-    ['♠', '1'], ['♠', '2'], ['♠', '3'], ['♠', '4'], ['♠', '5'], ['♠', '6'], ['♠', '7'], ['♠', '8'], ['♠', '9'], ['♠', '10'], ['♠', 'J'], ['♠', 'Q'], ['♠', 'K'], ['♠', 'A'],
-    ['♣', '1'], ['♣', '2'], ['♣', '3'], ['♣', '4'], ['♣', '5'], ['♣', '6'], ['♣', '7'], ['♣', '8'], ['♣', '9'], ['♣', '10'], ['♣', 'J'], ['♣', 'Q'], ['♣', 'K'], ['♣', 'A']
+  ['♥', '1'], ['♥', '2'], ['♥', '3'], ['♥', '4'], ['♥', '5'], ['♥', '6'], ['♥', '7'], ['♥', '8'], ['♥', '9'], ['♥', '10'], ['♥', 'J'], ['♥', 'Q'], ['♥', 'K'], ['♥', 'A'],
+  ['♦', '1'], ['♦', '2'], ['♦', '3'], ['♦', '4'], ['♦', '5'], ['♦', '6'], ['♦', '7'], ['♦', '8'], ['♦', '9'], ['♦', '10'], ['♦', 'J'], ['♦', 'Q'], ['♦', 'K'], ['♦', 'A'],
+  ['♠', '1'], ['♠', '2'], ['♠', '3'], ['♠', '4'], ['♠', '5'], ['♠', '6'], ['♠', '7'], ['♠', '8'], ['♠', '9'], ['♠', '10'], ['♠', 'J'], ['♠', 'Q'], ['♠', 'K'], ['♠', 'A'],
+  ['♣', '1'], ['♣', '2'], ['♣', '3'], ['♣', '4'], ['♣', '5'], ['♣', '6'], ['♣', '7'], ['♣', '8'], ['♣', '9'], ['♣', '10'], ['♣', 'J'], ['♣', 'Q'], ['♣', 'K'], ['♣', 'A']
 ];
 
 function shuffle(array) {
@@ -75,9 +74,10 @@ function shuffle(array) {
 
   for (let index = (outputArray.length - 1); index > 0; index -= 1) {
     let otherIndex = Math.floor(Math.random() * (index + 1));
-    [outputArray[index], outputArray[otherIndex]] = [outputArray[otherIndex], outputArray[index]];
+    [outputArray[index], outputArray[otherIndex]] =
+      [outputArray[otherIndex], outputArray[index]];
   }
-  
+
   return outputArray;
 }
 
@@ -86,13 +86,13 @@ function total(cards) {
     .map(card => card[1])
     .reduce((sum, value) => {
       let numberValue = Number(value);
-      
+
       if (value === "A") {
-	return (sum + 11) > 21 ? sum += 1 : sum += 11;
+        return (sum + 11) > 21 ? sum + 1 : sum + 11;
       } else if (['J', 'Q', 'K'].includes(value)) {
-	return sum += 10;
+        return sum + 10;
       } else {
-	return sum += numberValue;
+        return sum + numberValue;
       }
     }, 0);
 }
@@ -115,14 +115,14 @@ function getHandString(hand) {
 
 while (true) {
   console.clear();
-  
+
   let shuffledCards = shuffle(ALL_CARDS);
   let playerHand = [drawCard(shuffledCards), drawCard(shuffledCards)];
   let dealerHand = [drawCard(shuffledCards), drawCard(shuffledCards)];
 
   while (true) {
     console.clear();
-    
+
     let playerHandString = getHandString(playerHand);
     let dealerHandString = getHandString(dealerHand.slice(0, 1)) + " | XX";
 
@@ -132,13 +132,13 @@ while (true) {
 
     console.log("Dealer's cards:");
     console.log(dealerHandString);
-  
+
     console.log("Do you want to [H]it or [S]tay?");
-  
+
     let answer = readline.question();
     if (answer[0].toLowerCase() === "h") {
       playerHand.push(drawCard(shuffledCards));
-    } 
+    }
     if (answer[0].toLowerCase() === "s" || busted(playerHand)) {
       break;
     }
@@ -151,7 +151,7 @@ while (true) {
   console.clear();
 
   if (busted(playerHand)) {
-    console.log("You got busted, dealer won!");    
+    console.log("You got busted, dealer won!");
   } else if (busted(dealerHand)) {
     console.log("Dealer got busted, player won!");
   } else if (total(playerHand) === total(dealerHand)) {
@@ -167,12 +167,12 @@ while (true) {
 
   console.log("Do you want to play again? (y/n)");
   let playAgain = readline.question().toLowerCase()[0];
-  
+
   while (playAgain !== "y" && playAgain !== "n") {
     console.log("Please enter a valid choice: y or n");
     playAgain = readline.question().toLowerCase()[0];
   }
 
   if (playAgain === "n") break;
-    
+
 }
