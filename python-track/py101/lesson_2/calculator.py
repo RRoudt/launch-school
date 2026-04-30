@@ -16,7 +16,7 @@ while True:
     try:
         number1 = int(number1)
         break
-    except:
+    except ValueError:
         prompt("That's not a valid number")
         continue
 
@@ -27,7 +27,7 @@ while True:
     try:
         number2 = int(number2)
         break
-    except:
+    except ValueError:
         prompt("That's not a valid number")
         continue
 
@@ -49,7 +49,9 @@ match operation:
     case '4':
         try:
             output = number1 / number2
-        except:
-            prompt("You can't divide by 0. Please choose another second number.")
+        except ZeroDivisionError:
+            prompt("You can't divide by 0. "
+                   "Please choose another second number.")
+            output = None
 
 prompt(f"The result is: {output}")
