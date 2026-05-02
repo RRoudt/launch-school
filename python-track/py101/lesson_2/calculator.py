@@ -39,7 +39,7 @@ while True:
     operation = ''
     while operation not in ('1', '2', '3', '4'):
         prompt("""What operation would you like to perform?
-        1) Add 2) Subtract 3) Multiply 4) Divide""")
+    1) Add 2) Subtract 3) Multiply 4) Divide""")
         operation = input()
 
     # Perform and print the operation on the two numbers
@@ -63,6 +63,8 @@ while True:
     # Ask the user to do another calculation
     prompt("Do you want to do another calculation? y/n")
 
-    continue_calculation = input()[0].lower()
-    if continue_calculation != 'y':
+    continue_calculation = input()
+    if continue_calculation == '':
+        break
+    if continue_calculation[0] != 'y':
         break
