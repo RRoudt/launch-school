@@ -1,5 +1,6 @@
 {
     "en": {
+        "language_choice": "1: English\n==> 2: Nederlands",
         "welcome": "Welcome to Calculator!",
         "prompt_number1": "What's the first number?",
         "prompt_number2": "What's the second number?",
