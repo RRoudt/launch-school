@@ -42,10 +42,10 @@ while True:
         prompt('prompt_number1')
         number1 = input()
         try:
-            number1 = int(number1)
+            number1 = float(number1)
             break
         except ValueError:
-            prompt('not_valid_number')
+            prompt('invalid_number')
             continue
 
     # Ask the user for the second number
@@ -53,10 +53,10 @@ while True:
         prompt('prompt_number2')
         number2 = input()
         try:
-            number2 = int(number2)
+            number2 = float(number2)
             break
         except ValueError:
-            prompt('not_valid_number')
+            prompt('invalid_number')
             continue
 
     # Ask the user for the operation to perform
