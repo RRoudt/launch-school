@@ -29,9 +29,9 @@
 def prompt(message):
     print(f"==> {message}")
 
-def invalid_number(input):
+def invalid_number(value):
     try:
-        number = float(input)
+        number = float(value)
         if number <= 0:
             raise ValueError(f"Value must be > 0: {input}")
     except ValueError:
@@ -71,9 +71,9 @@ def prompt_yearly_interest_rate():
 
     return float(yearly_interest_rate_input)
 
-def invalid_choice(input):
+def invalid_choice(value):
     try:
-        choice = input.strip().lower()[0]
+        choice = value.strip().lower()[0]
         if choice not in ('y', 'n'):
             return True
     except IndexError:
