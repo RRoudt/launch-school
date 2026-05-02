@@ -26,15 +26,18 @@
 # Monthly payment = loan amount * (month interest rate /
 #   (1 - (1 + monthly interest rate) ** (-loan duration in months)))
 
+import os
+
 def prompt(message):
     print(f"==> {message}")
 
 def invalid_number(value):
     try:
         number = float(value)
-        if number <= 0:
-            raise ValueError(f"Value must be > 0: {input}")
     except ValueError:
+        return True
+    
+    if number <= 0:
         return True
     
     return False
@@ -88,7 +91,6 @@ def display_loan_summary(loan_amount, loan_duration_years,
     prompt(f"Annual Percentage Rate (APR): {yearly_interest_rate}")
     prompt(f"Your monthly payment will be: ${monthly_payment:.2f}")
 
-
 prompt("Welcome to Mortgage Calculator!")
 
 while True:
@@ -118,6 +120,7 @@ while True:
         continue_choice = input()
 
     if continue_choice[0] == 'y':
+        os.system('clear')
         continue
     else:
         prompt("Thank you for using calculator.")
