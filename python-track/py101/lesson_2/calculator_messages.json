@@ -1,0 +1,10 @@
+{
+    "welcome": "Welcome to Calculator!",
+    "prompt_number1": "What's the first number?",
+    "prompt_number2": "What's the second number?",
+    "not_valid_number": "That's not a valid number",
+    "what_operation_prompt": "What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide",
+    "zero_division_error": "You can't divide by 0. Please choose another second number.",
+    "result": "The result is:",
+    "another_calculation": "Do you want to do another calculation? y/n"
+}

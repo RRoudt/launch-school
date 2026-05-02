@@ -5,41 +5,45 @@
 # Print the result to the terminal.
 # Ask the user if they wanted to perform another calculation
 #   If they respond with yes: start a new calculation
+# Use the JSON format to store messages in a file
+
+import json
+with open('calculator_messages.json', 'r') as file:
+    M = json.load(file)
 
 def prompt(message):
     print(f"==> {message}")
 
-prompt('Welcome to Calculator!')
+prompt(M['welcome'])
 
 # While the user wants to keep calculating
 while True:
     # Ask the user for the first number
     while True:
-        prompt("What's the first number?")
+        prompt(M['prompt_number1'])
         number1 = input()
         try:
             number1 = int(number1)
             break
         except ValueError:
-            prompt("That's not a valid number")
+            prompt(M['not_valid_number'])
             continue
 
     # Ask the user for the second number
     while True:
-        prompt("What's the second number?")
+        prompt(M['prompt_number2'])
         number2 = input()
         try:
             number2 = int(number2)
             break
         except ValueError:
-            prompt("That's not a valid number")
+            prompt(M['not_valid_number'])
             continue
 
     # Ask the user for the operation to perform
     operation = ''
     while operation not in ('1', '2', '3', '4'):
-        prompt("""What operation would you like to perform?
-    1) Add 2) Subtract 3) Multiply 4) Divide""")
+        prompt(M['what_operation_prompt'])
         operation = input()
 
     # Perform and print the operation on the two numbers
@@ -54,14 +58,13 @@ while True:
             try:
                 output = number1 / number2
             except ZeroDivisionError:
-                prompt("You can't divide by 0. "
-                    "Please choose another second number.")
+                prompt(M['zero_division_error'])
                 output = None
 
-    prompt(f"The result is: {output}")
+    prompt(f"{M['result']} {output}")
 
     # Ask the user to do another calculation
-    prompt("Do you want to do another calculation? y/n")
+    prompt(M['another_calculation'])
 
     continue_calculation = input()
     if continue_calculation == '':
