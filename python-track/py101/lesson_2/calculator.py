@@ -64,12 +64,5 @@ while True:
     prompt("Do you want to do another calculation? y/n")
 
     continue_calculation = input()[0].lower()
-    while continue_calculation not in ('y', 'n'):
-        prompt("That's not a valid choice. Please type y or n")
-        continue_calculation = input()[0]
-    
-    if continue_calculation == 'y':
-        continue
-    else:
-        prompt("See ya!")
+    if continue_calculation != 'y':
         break
