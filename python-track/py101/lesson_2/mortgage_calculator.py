@@ -86,7 +86,7 @@ def display_loan_summary(loan_amount, loan_duration_years,
     prompt(f"You want to loan: {loan_amount}")
     prompt(f"Loan duration in years: {loan_duration_years}")
     prompt(f"Annual Percentage Rate (APR): {yearly_interest_rate}")
-    prompt(f"Your monthly payment will be: ${round(monthly_payment, 2)}")
+    prompt(f"Your monthly payment will be: ${monthly_payment:.2f}")
 
 
 prompt("Welcome to Mortgage Calculator!")
