@@ -14,36 +14,48 @@ with open('calculator_messages.json', 'r') as file:
 def prompt(message):
     print(f"==> {message}")
 
-prompt(M['welcome'])
+prompt("1: English")
+prompt("2: Nederlands")
+language_choice = input("1/2: ")
+
+while language_choice not in ('1', '2'):
+    language_choice = input("1/2: ")
+
+if language_choice == '1':
+    lang = 'en'
+else:
+    lang = 'nl'
+
+prompt(M[lang]['welcome'])
 
 # While the user wants to keep calculating
 while True:
     # Ask the user for the first number
     while True:
-        prompt(M['prompt_number1'])
+        prompt(M[lang]['prompt_number1'])
         number1 = input()
         try:
             number1 = int(number1)
             break
         except ValueError:
-            prompt(M['not_valid_number'])
+            prompt(M[lang]['not_valid_number'])
             continue
 
     # Ask the user for the second number
     while True:
-        prompt(M['prompt_number2'])
+        prompt(M[lang]['prompt_number2'])
         number2 = input()
         try:
             number2 = int(number2)
             break
         except ValueError:
-            prompt(M['not_valid_number'])
+            prompt(M[lang]['not_valid_number'])
             continue
 
     # Ask the user for the operation to perform
     operation = ''
     while operation not in ('1', '2', '3', '4'):
-        prompt(M['what_operation_prompt'])
+        prompt(M[lang]['what_operation_prompt'])
         operation = input()
 
     # Perform and print the operation on the two numbers
@@ -58,13 +70,13 @@ while True:
             try:
                 output = number1 / number2
             except ZeroDivisionError:
-                prompt(M['zero_division_error'])
+                prompt(M[lang]['zero_division_error'])
                 output = None
 
-    prompt(f"{M['result']} {output}")
+    prompt(f"{M[lang]['result']} {output}")
 
     # Ask the user to do another calculation
-    prompt(M['another_calculation'])
+    prompt(M[lang]['another_calculation'])
 
     continue_calculation = input()
     if continue_calculation == '':
