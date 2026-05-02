@@ -26,24 +26,23 @@
 # Monthly payment = loan amount * (month interest rate /
 #   (1 - (1 + monthly interest rate) ** (-loan duration in months)))
 
+import os
+
 def prompt(message):
     print(f"==> {message}")
 
-def invalid_number(input):
+def invalid_number(value):
     try:
-        number = float(input)
-        if number <= 0:
-            raise ValueError(f"Value must be > 0: {input}")
+        number = float(value)
     except ValueError:
+        return True
+    
+    if number <= 0:
         return True
     
     return False
 
-
-prompt("Welcome to Mortgage Calculator!")
-
-while True:
-    # Ask user for loan amount
+def prompt_loan_amount():
     prompt("How much do you want to loan?")
     loan_amount_input = input()
 
@@ -51,9 +50,10 @@ while True:
         prompt("That's not a valid number, please try again.")
         loan_amount_input = input()
 
-    loan_amount = float(loan_amount_input)
+    return float(loan_amount_input)
 
-    # Ask user for loan duration
+
+def prompt_loan_duration():
     prompt("How long should the loan be (in years)?")
     loan_duration_years_input = input()
 
@@ -61,9 +61,9 @@ while True:
         prompt("That's not a valid number, please try again.")
         loan_duration_years_input = input()
 
-    loan_duration_years = float(loan_duration_years_input)
+    return float(loan_duration_years_input)
 
-    # Ask user for yearly interest rate
+def prompt_yearly_interest_rate():
     prompt("What is the yearly interest rate (APR)?")
     prompt(f"Example: 5 for 5% or 2.5 for 2.5%")
     yearly_interest_rate_input = input()
@@ -72,7 +72,32 @@ while True:
         prompt("That's not a valid number, please try again.")
         yearly_interest_rate_input = input()
 
-    yearly_interest_rate = float(yearly_interest_rate_input)
+    return float(yearly_interest_rate_input)
+
+def invalid_choice(value):
+    try:
+        choice = value.strip().lower()[0]
+        if choice not in ('y', 'n'):
+            return True
+    except IndexError:
+        return True
+    
+    return False
+
+def display_loan_summary(loan_amount, loan_duration_years,
+                         yearly_interest_rate, monthly_payment):
+    prompt(f"You want to loan: {loan_amount}")
+    prompt(f"Loan duration in years: {loan_duration_years}")
+    prompt(f"Annual Percentage Rate (APR): {yearly_interest_rate}")
+    prompt(f"Your monthly payment will be: ${monthly_payment:.2f}")
+
+prompt("Welcome to Mortgage Calculator!")
+
+while True:
+    # Prompt user for inputs
+    loan_amount = prompt_loan_amount()
+    loan_duration_years = prompt_loan_duration()
+    yearly_interest_rate = prompt_yearly_interest_rate()
             
     # Calculate monthly interest rate and loan duration in months
     monthly_interest_rate = (yearly_interest_rate / 12) / 100
@@ -84,12 +109,19 @@ while True:
     ))
 
     # Show monthly payment amount
-    prompt(f"Your monthly payment is: ${round(monthly_payment, 2)}")
-    print("--------------------------------------")
+    display_loan_summary(loan_amount, loan_duration_years,
+                         yearly_interest_rate, monthly_payment)
+    print("------------------------------------------")
     prompt("Do you want to do another calculation? (y/n)")
-    continue_calculating = input().strip().lower()
+    continue_choice = input()
 
-    if continue_calculating == '':
-        break
-    if continue_calculating[0] != 'y':
+    while invalid_choice(continue_choice):
+        prompt("That's not a valid option. Please choose [y]es or [n]o")
+        continue_choice = input()
+
+    if continue_choice[0] == 'y':
+        os.system('clear')
+        continue
+    else:
+        prompt("Thank you for using calculator.")
         break
