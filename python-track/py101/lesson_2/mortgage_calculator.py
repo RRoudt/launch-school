@@ -39,6 +39,23 @@ def invalid_number(input):
     
     return False
 
+def invalid_choice(input):
+    try:
+        choice = input.strip().lower()[0]
+        if choice not in ('y', 'n'):
+            return True
+    except IndexError:
+        return True
+    
+    return False
+
+def display_loan_summary(loan_amount, loan_duration_years,
+                         yearly_interest_rate, monthly_payment):
+    prompt(f"You want to loan: {loan_amount}")
+    prompt(f"Loan duration in years: {loan_duration_years}")
+    prompt(f"Annual Percentage Rate (APR): {yearly_interest_rate}")
+    prompt(f"Your monthly payment will be: ${round(monthly_payment, 2)}")
+
 
 prompt("Welcome to Mortgage Calculator!")
 
@@ -84,12 +101,18 @@ while True:
     ))
 
     # Show monthly payment amount
-    prompt(f"Your monthly payment is: ${round(monthly_payment, 2)}")
+    display_loan_summary(loan_amount, loan_duration_years,
+                         yearly_interest_rate, monthly_payment)
     print("--------------------------------------")
     prompt("Do you want to do another calculation? (y/n)")
-    continue_calculating = input().strip().lower()
+    continue_choice = input()
 
-    if continue_calculating == '':
-        break
-    if continue_calculating[0] != 'y':
+    while invalid_choice(continue_choice):
+        prompt("That's not a valid option. Please choose [y]es or [n]o")
+        continue_choice = input()
+
+    if continue_choice[0] == 'y':
+        continue
+    else:
+        prompt("Thank you for using calculator.")
         break
