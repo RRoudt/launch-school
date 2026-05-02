@@ -86,7 +86,7 @@ while True:
     # Ask the user to do another calculation
     prompt('another_calculation')
 
-    continue_calculation = input()
+    continue_calculation = input().strip()
     if continue_calculation == '':
         break
     if continue_calculation[0] != 'y':
