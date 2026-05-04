@@ -105,6 +105,6 @@ while True:
 
         if continue_choice != 'y':
             break
-            
+
         player_score = 0
         computer_score = 0
