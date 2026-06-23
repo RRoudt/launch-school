@@ -122,7 +122,7 @@ SUITS = ('Hearts', 'Diamonds', 'Clubs', 'Spades')
 VALUES = ('2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack',
           'Queen', 'King', 'Ace')
 
-def clear_screen():
+def clear_display():
     call('clear' if os.name == 'posix' else 'cls')
 
 def generate_deck():
@@ -148,16 +148,7 @@ def join_and(sequence, delimiter=', ', word='and'):
     return f"{first_part} {last_part}"
 
 def is_valid_answer(answer):
-    if not answer.isalpha():
-        return False
-
-    if len(answer) != 1:
-        return False
-
-    if answer not in ('h', 's'):
-        return False
-
-    return True
+    return answer.isalpha() and len(answer) == 1 and answer in ('h', 's')
 
 def calculate_score(cards):
     values = [value for value, suit in cards]
@@ -180,7 +171,7 @@ def calculate_score(cards):
 def is_busted(cards):
     return calculate_score(cards) > 21
 
-def print_score(player_cards, dealer_cards):
+def display_final_score(player_cards, dealer_cards):
     print("\n---------------------------")
     print("+++ Player +++")
     print(f"Cards: {join_and([card[0] for card in player_cards])}")
@@ -191,7 +182,7 @@ def print_score(player_cards, dealer_cards):
     print(f"Score: {calculate_score(dealer_cards)}\n")
 
 def play_game():
-    clear_screen()
+    clear_display()
 
     deck = generate_deck()
     player_cards = [draw_card(deck) for _ in range (2)]
@@ -222,8 +213,9 @@ def play_game():
             print(f"Your score: {calculate_score(player_cards)}")
 
             if is_busted(player_cards):
+                clear_display()
                 print("Player busted! Dealer wins!")
-                print_score(player_cards, dealer_cards)
+                display_final_score(player_cards, dealer_cards)
 
     if not is_busted(player_cards):
         while calculate_score(dealer_cards) < 17 and not is_busted(dealer_cards):
@@ -233,10 +225,12 @@ def play_game():
             print(f"Dealer's score: {calculate_score(dealer_cards)}")
 
             if is_busted(dealer_cards):
+                clear_display()
                 print("Dealer busted! Player wins")
-                print_score(player_cards, dealer_cards)
+                display_final_score(player_cards, dealer_cards)
 
         if not is_busted(dealer_cards):
+            clear_display()
             player_score = calculate_score(player_cards)
             dealer_score = calculate_score(dealer_cards)
 
@@ -247,10 +241,10 @@ def play_game():
             else:
                 print("It's a tie!")
 
-            print_score(player_cards, dealer_cards)
+            display_final_score(player_cards, dealer_cards)
 
 while True:
-    clear_screen()
+    clear_display()
     play_game()
 
     print("Do you to play again? y/n")
