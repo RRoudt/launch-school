@@ -243,17 +243,20 @@ def play_game():
 
             display_final_score(player_cards, dealer_cards)
 
-while True:
-    clear_display()
-    play_game()
+def main():
+    while True:
+        clear_display()
+        play_game()
 
-    print("Do you to play again? y/n")
-    play_again = input().lower()
-
-    while play_again not in ('y', 'n'):
-        print("Sorry, that's not a valid answer.")
         print("Do you to play again? y/n")
         play_again = input().lower()
 
-    if play_again == 'n':
-        break
+        while play_again not in ('y', 'n'):
+            print("Sorry, that's not a valid answer.")
+            print("Do you to play again? y/n")
+            play_again = input().lower()
+
+        if play_again == 'n':
+            break
+
+main()
